@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: OnlineShop
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/d_online_shop
+    username: postgres
+    password: Qasaqayj7
+
+
+  liquibase:
+    change-log: db/main-data.xml

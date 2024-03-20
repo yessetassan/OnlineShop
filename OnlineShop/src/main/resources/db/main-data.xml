@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <include file="db/changelog/001_add_all_entity.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/002_add_indexes_to_entities.sql" relativeToChangelogFile="false"/>
+
+</databaseChangeLog>

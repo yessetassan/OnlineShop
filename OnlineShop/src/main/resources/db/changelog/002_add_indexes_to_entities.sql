@@ -1,0 +1,1 @@
+CREATE INDEX idx_user_name ON t_user(username)
