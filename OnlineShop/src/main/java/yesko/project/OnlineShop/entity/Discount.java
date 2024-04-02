@@ -1,12 +1,19 @@
 package yesko.project.OnlineShop.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "t_discount")
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Discount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

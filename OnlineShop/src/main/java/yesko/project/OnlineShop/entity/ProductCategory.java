@@ -1,11 +1,15 @@
 package yesko.project.OnlineShop.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
-
+@Data
 @Entity
 @Table(name = "t_product_category")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter @Setter
 public class ProductCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

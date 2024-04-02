@@ -1,11 +1,16 @@
 package yesko.project.OnlineShop.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "t_product_inventory")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class ProductInventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
