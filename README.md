@@ -1,4 +1,12 @@
-## Project Structure
-# Security
-* Spring Security 3.12
-* JWT
+## Project Library structure
+# Product
+* Category
+* Type
+* User
+* and other necessary entities are added...
+
+# REST API
+* GET : to get entities
+* POST : we can extend entity
+* PUT : how in desc there's no modify yet
+* and other endpoints
