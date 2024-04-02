@@ -16,7 +16,7 @@ CREATE TABLE t_user_info (
                          city VARCHAR(255) NOT NULL,
                          country VARCHAR(255) NOT NULL,
                          telephone VARCHAR(255) NOT NULL,
-                         postal_code VARCHAR(50) NOT NULL,
+                         postal_code VARCHAR(50),
                          FOREIGN KEY (user_id) REFERENCES t_user(id) ON DELETE CASCADE
 );
 
