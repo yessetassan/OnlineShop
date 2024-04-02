@@ -1,4 +1,4 @@
-## Project structure
+## Project Library structure
 # Product
 * Category
 * Type
