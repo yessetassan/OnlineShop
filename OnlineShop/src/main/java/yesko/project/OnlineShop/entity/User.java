@@ -13,9 +13,13 @@ import java.time.LocalDateTime;
 @Setter
 public class User{
 
+    public User(Integer id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(name = "username", nullable = false, unique = true, length = 255)
     private String username;

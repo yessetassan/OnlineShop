@@ -21,9 +21,7 @@ import java.util.Optional;
 @Slf4j
 @RequestMapping("/api/personInfo")
 public class PersonSelfInfoResource {
-
     private final SecurityUtil securityUtil;
-
     @GetMapping
     public ResponseEntity<UserAuthDto> info() {
         Optional<UserAuth> userAuth = Optional.ofNullable(securityUtil.getCurrentUser());

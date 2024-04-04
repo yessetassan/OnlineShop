@@ -9,13 +9,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
-    private Long id;
+    private Integer id;
     private String username;
     private String firstName;
     private String lastName;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-
     public static UserDto fromEntity(User user) {
         return new UserDto(
                 user.getId(),

@@ -1,12 +1,9 @@
-## Project Library structure
-# Product
-* Category
-* Type
-* User
-* and other necessary entities are added...
-
-# REST API
-* GET : to get entities
-* POST : we can extend entity
-* PUT : how in desc there's no modify yet
-* and other endpoints
+## Database Connection Singleton
+# Integration Process
+* DatabaseConnection.class
+* OnlineShopApplication.class
+* application.yml
+* DONE a test program
+* Singleton pattern is used
+* Private constructor are made
+* static method to return

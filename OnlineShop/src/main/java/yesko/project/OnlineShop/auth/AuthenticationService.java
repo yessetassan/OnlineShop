@@ -89,13 +89,11 @@ public class AuthenticationService {
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
     }
-
     private Role toUserRole() {
-        final String role = AuthorizationStatus.USER_ROLE.getRoleName();
+        final String role = AuthorizationStatus.USER.getRoleName();
         return roleRepo.findByName(role)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Error during loading for %s...", role)));
     }
-
     private User toUserEntity(RegisterRequest request) {
         User user = new User();
         user.setUsername(request.getUsername());
@@ -105,26 +103,29 @@ public class AuthenticationService {
         user.setModifiedAt(LocalDateTime.now());
         return userRepo.save(user);
     }
-
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getUsername(),
-                        request.getPassword()
-                )
-        );
         var userAuth = userAuthRepo.findByUsername(request.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User with username %s not found...", request.getUsername())));
-        var jwt = jwtService.generateToken(userAuth);
-        ZoneId zoneId = ZoneId.of("Asia/Almaty");
-        userAuth.setToken(jwt);
-        userAuth.setExpiredDate(jwtService.extractExpiration(jwt).toInstant()
-                .atZone(zoneId)
-                .toLocalDateTime());
-        userAuthRepo.save(userAuth);
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getUsername(),
+                            request.getPassword()
+                    )
+            );
+            var jwt = jwtService.generateToken(userAuth);
+            ZoneId zoneId = ZoneId.of("Asia/Almaty");
+            userAuth.setToken(jwt);
+            userAuth.setExpiredDate(jwtService.extractExpiration(jwt).toInstant()
+                    .atZone(zoneId)
+                    .toLocalDateTime());
+            userAuthRepo.save(userAuth);
 
-        return AuthenticationResponse.builder()
-                .token(jwt)
-                .build();
+            return AuthenticationResponse.builder()
+                    .token(jwt)
+                    .build();
+        }catch (Exception e) {
+            throw new UsernameNotFoundException("User with password not found...");
+        }
     }
 }

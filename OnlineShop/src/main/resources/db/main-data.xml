@@ -7,6 +7,8 @@
     <include file="db/changelog/001_add_all_entity.sql" relativeToChangelogFile="false"/>
     <include file="db/changelog/002_add_indexes_to_entities.sql" relativeToChangelogFile="false"/>
     <include file="db/changelog/003_add_roles.sql" relativeToChangelogFile="false"/>
-    <include file="db/changelog/004_add_product.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/004_add_users.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/005_add_user_auths.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/006_add_user_infos.sql" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

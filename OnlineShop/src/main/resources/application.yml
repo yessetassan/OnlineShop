@@ -1,17 +1,5 @@
-spring:
-  application:
-    name: OnlineShop
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/d_online_shop
-    username: postgres
-    password: Qasaqayj7
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-  liquibase:
-    change-log: db/main-data.xml
+database:
+  hostname: localhost
+  username: postgres
+  password: 123456
+  databaseName: student_att
