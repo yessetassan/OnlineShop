@@ -30,7 +30,6 @@ public class AuthenticationController {
         log.info("Authentication process...");
         return ResponseEntity.ok().body(service.authenticate(request));
     }
-
     @PostMapping("/email")
     public ResponseEntity<String> authenticate(
             @RequestBody EmailRequest request
@@ -38,5 +37,4 @@ public class AuthenticationController {
         log.info("EmailSender process...");
         return ResponseEntity.ok().body(emailSenderService.sendMail(request));
     }
-
 }

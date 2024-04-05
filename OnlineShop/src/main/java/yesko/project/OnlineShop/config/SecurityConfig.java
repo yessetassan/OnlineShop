@@ -1,5 +1,6 @@
 package yesko.project.OnlineShop.config;
 
+import io.swagger.v3.oas.models.OpenAPI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,12 @@ import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import yesko.project.OnlineShop.utils.enums.AuthorizationStatus;
 
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import static org.springframework.http.HttpMethod.*;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 import static yesko.project.OnlineShop.utils.enums.AuthorizationStatus.*;
@@ -22,6 +29,7 @@ import static yesko.project.OnlineShop.utils.enums.AuthorizationStatus.*;
 @EnableWebSecurity
 @EnableMethodSecurity
 @RequiredArgsConstructor
+@EnableWebMvc
 public class SecurityConfig {
 
     private static final String[] WHITE_LIST_URL = {
@@ -38,14 +46,14 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req ->
-//                        req.requestMatchers(WHITE_LIST_URL)
-//                                .permitAll()
-//                                .requestMatchers(GET , "api/user/**").hasAnyRole(USER.name(),DEVELOPER.name(), ADMIN.name())
-//                                .requestMatchers(POST , "api/user/**").hasAnyRole(DEVELOPER.name(), ADMIN.name())
-//                                .requestMatchers(PUT , "api/user/**").hasAnyRole(DEVELOPER.name(), ADMIN.name())
-//                                .requestMatchers(DELETE , "api/user/**").hasAnyRole(DEVELOPER.name(), ADMIN.name())
-//                                .anyRequest()
-//                                .authenticated()
+                       req.requestMatchers(WHITE_LIST_URL)
+                               .permitAll()
+                               .requestMatchers(GET , "api/user/**").hasAnyRole(USER.name(),DEVELOPER.name(), ADMIN.name())
+                               .requestMatchers(POST , "api/user/**").hasAnyRole(DEVELOPER.name(), ADMIN.name())
+                               .requestMatchers(PUT , "api/user/**").hasAnyRole(DEVELOPER.name(), ADMIN.name())
+                               .requestMatchers(DELETE , "api/user/**").hasAnyRole(DEVELOPER.name(), ADMIN.name())
+                               .anyRequest()
+                               .authenticated()
                         req.anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
@@ -54,5 +62,26 @@ public class SecurityConfig {
         ;
 
         return http.build();
+    }
+
+    @Bean
+    public OpenAPI openAPI() {
+        return new OpenAPI()
+                .addSecurityItem(new SecurityRequirement()
+                        .addList("bearerAuth"))
+                .components(
+                        new Components()
+                                .addSecuritySchemes("bearerAuth",
+                                        new SecurityScheme()
+                                                .type(SecurityScheme.Type.HTTP)
+                                                .scheme("bearer")
+                                                .bearerFormat("JWT")
+                                )
+                )
+                .info(new Info()
+                        .title("Task list API")
+                        .description("Demo Spring Boot application")
+                        .version("1.0")
+                );
     }
 }
