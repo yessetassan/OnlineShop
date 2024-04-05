@@ -24,6 +24,21 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ErrorDetails> handleIllegalStateException(IllegalStateException ex, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage());
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<ErrorDetails> handleUsernameNotFoundException(UsernameNotFoundException ex, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage());
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
     @Data
     @AllArgsConstructor
     @NoArgsConstructor

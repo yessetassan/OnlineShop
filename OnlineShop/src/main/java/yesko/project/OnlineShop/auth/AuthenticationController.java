@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import yesko.project.OnlineShop.service.EmailSenderService;
 
 @RestController
 @RequestMapping("/open-api/auth")
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
 
     private final AuthenticationService service;
+    private final EmailSenderService emailSenderService;
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
@@ -28,5 +30,11 @@ public class AuthenticationController {
         log.info("Authentication process...");
         return ResponseEntity.ok().body(service.authenticate(request));
     }
-
+    @PostMapping("/email")
+    public ResponseEntity<String> authenticate(
+            @RequestBody EmailRequest request
+    ) {
+        log.info("EmailSender process...");
+        return ResponseEntity.ok().body(emailSenderService.sendMail(request));
+    }
 }

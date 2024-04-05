@@ -13,6 +13,10 @@ import java.time.LocalDateTime;
 @Setter
 public class User{
 
+    public User(Integer id) {
+        this.id = id;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
