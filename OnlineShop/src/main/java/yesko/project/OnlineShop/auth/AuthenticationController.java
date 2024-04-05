@@ -29,7 +29,4 @@ public class AuthenticationController {
         return ResponseEntity.ok().body(service.authenticate(request));
     }
 
-
-
-
 }
