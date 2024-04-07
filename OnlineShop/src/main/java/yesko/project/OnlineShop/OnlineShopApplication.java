@@ -12,24 +12,10 @@ import yesko.project.OnlineShop.entity.User;
 import java.util.List;
 
 @SpringBootApplication
-public class OnlineShopApplication implements CommandLineRunner {
-
-	@Autowired
-	private DatabaseConnection databaseConnection;
+public class OnlineShopApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(OnlineShopApplication.class, args);
-	}
-
-	@Override
-	public void run(String... args) throws Exception {
-		List<User> userList = databaseConnection.executeQuery("SELECT * FROM t_user");
-
-		// Retrieve and print connection info
-		System.out.println(databaseConnection.getConnectionInfo());
-
-		// Try getting another instance (should return the same instance)
-		DatabaseConnection anotherDatabaseConnection = databaseConnection;
 	}
 
 }

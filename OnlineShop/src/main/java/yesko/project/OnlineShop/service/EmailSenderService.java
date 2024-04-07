@@ -15,7 +15,6 @@ import yesko.project.OnlineShop.entity.UserInfo;
 import yesko.project.OnlineShop.repo.UserAuthRepo;
 
 import static yesko.project.OnlineShop.utils.Constants.*;
-
 @Service
 @AllArgsConstructor
 public class EmailSenderService {
