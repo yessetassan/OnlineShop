@@ -57,7 +57,6 @@ CREATE TABLE t_shopping_session (
                                 FOREIGN KEY (user_id) REFERENCES t_user(id) ON DELETE CASCADE
 );
 
-
 CREATE TABLE t_product_category (
                                     id serial PRIMARY KEY,
                                     name VARCHAR(255) NOT NULL,
@@ -110,8 +109,6 @@ CREATE TABLE t_payment_status (
                                 id serial PRIMARY KEY,
                                 name VARCHAR(255) NOT NULL UNIQUE
 );
-
-
 
 
 CREATE TABLE t_cart_item (

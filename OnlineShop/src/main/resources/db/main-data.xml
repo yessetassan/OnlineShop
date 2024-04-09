@@ -7,8 +7,16 @@
     <include file="db/changelog/001_add_all_entity.sql" relativeToChangelogFile="false"/>
     <include file="db/changelog/002_add_indexes_to_entities.sql" relativeToChangelogFile="false"/>
     <include file="db/changelog/003_add_roles.sql" relativeToChangelogFile="false"/>
-    <include file="db/changelog/004_add_users.sql" relativeToChangelogFile="false"/>
-    <include file="db/changelog/005_add_user_auths.sql" relativeToChangelogFile="false"/>
-    <include file="db/changelog/006_add_user_infos.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/004_fill_users.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/005_fill_user_auths.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/006_fill_user_info.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/007_fill_t_product_category.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/008_fill_t_product_inventory.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/009_fill_t_discount.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/010_fill_t_product.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/011_fill_t_user_payment.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/012_fill_t_payment_status.sql" relativeToChangelogFile="false"/>
+    <include file="db/changelog/013_fill_t_shopping_session.sql" relativeToChangelogFile="false"/>
+
 
 </databaseChangeLog>

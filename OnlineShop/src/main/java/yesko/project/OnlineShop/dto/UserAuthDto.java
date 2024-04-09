@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UserAuthDto {
 
-    private Integer id;
+    private Long id;
     private String username; // Assuming you want to include the username
     private String role; // Assuming you want to include the role name
     private String token;

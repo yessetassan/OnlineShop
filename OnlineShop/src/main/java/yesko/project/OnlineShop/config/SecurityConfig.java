@@ -1,6 +1,7 @@
 package yesko.project.OnlineShop.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,12 +29,12 @@ import static yesko.project.OnlineShop.utils.enums.AuthorizationStatus.*;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-@RequiredArgsConstructor
 @EnableWebMvc
+@AllArgsConstructor
 public class SecurityConfig {
 
     private static final String[] WHITE_LIST_URL = {
-            "/open-api/auth/**",
+            "/open-api/**",
             "/swagger-ui.html",
             "/swagger-ui/**",
             "/v3/api-docs/**"
@@ -53,9 +54,7 @@ public class SecurityConfig {
                                .requestMatchers(PUT , "api/user/**").hasAnyRole(DEVELOPER.name(), ADMIN.name())
                                .requestMatchers(DELETE , "api/user/**").hasAnyRole(DEVELOPER.name(), ADMIN.name())
                                .anyRequest()
-                               .authenticated()
-                        req.anyRequest().permitAll()
-                )
+                               .authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
