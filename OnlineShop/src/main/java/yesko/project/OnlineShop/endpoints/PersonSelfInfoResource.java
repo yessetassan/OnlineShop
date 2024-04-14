@@ -24,7 +24,7 @@ public class PersonSelfInfoResource {
     private final SecurityUtil securityUtil;
     @GetMapping
     public ResponseEntity<UserAuthDto> info() {
-        Optional<UserAuth> userAuth = Optional.ofNullable(securityUtil.getCurrentUser());
+        Optional<UserAuth> userAuth = Optional.ofNullable(securityUtil.getCurrentUserAuth());
         UserAuthDto userAuthDto = new UserAuthDto().toUserAuthDtoEntity(userAuth.get());
         return ResponseEntity.ok().body(userAuthDto);
     }

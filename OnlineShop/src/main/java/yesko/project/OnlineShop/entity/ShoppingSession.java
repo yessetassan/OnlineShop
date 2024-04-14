@@ -4,7 +4,7 @@ package yesko.project.OnlineShop.entity;
 import lombok.*;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -27,10 +27,10 @@ public class ShoppingSession {
     private BigDecimal total;
 
     @Column(name = "created_at")
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "modified_at")
-    private Timestamp modifiedAt;
+    private LocalDateTime modifiedAt;
 
     @OneToMany(mappedBy = "cart_shopSession", cascade = CascadeType.ALL)
     private List<CartItem> cartItemList;

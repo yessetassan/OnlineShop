@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "t_payment_details")
@@ -19,7 +19,7 @@ public class PaymentDetails {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id") // Foreign key in Student table
+    @JoinColumn(name = "order_id")
     private OrderDetails paymentDet_orderDet;
 
     @Column(name = "amount")
@@ -33,8 +33,8 @@ public class PaymentDetails {
     private PaymentStatus paymentDet_paymentStatus;
 
     @Column(name = "created_at", nullable = false)
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "modified_at", nullable = false)
-    private Timestamp modifiedAt;
+    private LocalDateTime modifiedAt;
 }

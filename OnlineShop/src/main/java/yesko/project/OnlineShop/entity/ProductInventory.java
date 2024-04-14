@@ -3,7 +3,7 @@ package yesko.project.OnlineShop.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.LocalDateTime;
 
 
@@ -23,13 +23,13 @@ public class ProductInventory {
     private Integer quantity;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "modified_at", nullable = false)
-    private Timestamp modifiedAt;
+    private LocalDateTime modifiedAt;
 
     @Column(name = "deleted_at")
-    private Timestamp deletedAt;
+    private LocalDateTime deletedAt;
 
     @OneToOne(mappedBy = "product_productInventory") // Student owns the relationship (optional)
     private Product product;

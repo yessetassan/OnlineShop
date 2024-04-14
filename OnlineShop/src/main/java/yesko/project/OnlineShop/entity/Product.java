@@ -6,7 +6,7 @@ package yesko.project.OnlineShop.entity;
 import lombok.*;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -31,7 +31,7 @@ public class Product {
     private String sku;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "category_id")
     private ProductCategory product_productCategory;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -46,13 +46,13 @@ public class Product {
     private Discount product_discount;
 
     @Column(name = "created_at")
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "modified_at")
-    private Timestamp modifiedAt;
+    private LocalDateTime modifiedAt;
 
     @Column(name = "deleted_at")
-    private Timestamp deletedAt;
+    private LocalDateTime deletedAt;
 
     @OneToMany(mappedBy = "cart_product", cascade = CascadeType.ALL)
     private List<CartItem> cartItemList;

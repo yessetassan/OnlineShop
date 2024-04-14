@@ -7,22 +7,20 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import yesko.project.OnlineShop.repo.UserAuthRepo;
-import yesko.project.OnlineShop.repo.UserRepo;
+import yesko.project.OnlineShop.repo.UserAuthRepository;
 
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
-    private final UserAuthRepo userAuthRepo;
+    private final UserAuthRepository userAuthRepository;
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> userAuthRepo.findByUsername(username)
+        return username -> userAuthRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 

@@ -9,7 +9,7 @@ import yesko.project.OnlineShop.entity.UserAuth;
 import java.util.Optional;
 
 @Repository
-public interface UserAuthRepo extends JpaRepository<UserAuth, Integer> {
+public interface UserAuthRepository extends JpaRepository<UserAuth, Integer> {
     @Query("SELECT u FROM UserAuth u WHERE u.user_userAuth.username LIKE :username")
     Optional<UserAuth> findByUsername(@Param("username") String username);
 }

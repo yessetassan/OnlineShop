@@ -12,7 +12,8 @@ import java.util.List;
 @Repository
 public interface DiscountRepository extends JpaRepository<Discount, Long> {
     List<Discount> findByActive(boolean active);
+    @Query("SELECT D FROM Discount D ORDER BY D.discountPercent")
+    List<Discount> findByDiscountPercentByAscendingOrder();
     @Query("SELECT D FROM Discount D ORDER BY D.discountPercent DESC")
-    List<Discount> findByDiscountPercentByAscending();
-
+    List<Discount> findByDiscountPercentByDescendingOrder();
 }

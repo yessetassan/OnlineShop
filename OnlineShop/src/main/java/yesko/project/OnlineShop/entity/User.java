@@ -3,7 +3,7 @@ package yesko.project.OnlineShop.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.LocalDateTime;
 import java.util.List;
 

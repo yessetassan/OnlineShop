@@ -1,7 +1,6 @@
 package yesko.project.OnlineShop.service;
 
 
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.mail.SimpleMailMessage;
@@ -12,7 +11,7 @@ import yesko.project.OnlineShop.auth.EmailRequest;
 import yesko.project.OnlineShop.entity.User;
 import yesko.project.OnlineShop.entity.UserAuth;
 import yesko.project.OnlineShop.entity.UserInfo;
-import yesko.project.OnlineShop.repo.UserAuthRepo;
+import yesko.project.OnlineShop.repo.UserAuthRepository;
 
 import static yesko.project.OnlineShop.utils.Constants.*;
 @Service
@@ -22,7 +21,7 @@ public class EmailSenderService {
     private final JavaMailSender javaMailSender;
     private final PasswordEncoder passwordEncoder;
     private final UserInfoService userInfoService;
-    private final UserAuthRepo userAuthRepo;
+    private final UserAuthRepository userAuthRepository;
 
     public String sendMail(EmailRequest emailDto) {
         UserInfo existingUserInfo = userInfoService.findByEmail(emailDto.getEmail())
@@ -51,7 +50,7 @@ public class EmailSenderService {
 
         UserAuth userAuth = user.getUserAuth();
         userAuth.setPassword(passwordEncoder.encode(generateSecretCode));
-        userAuthRepo.save(userAuth);
+        userAuthRepository.save(userAuth);
 
         userInfoService.save(existingUserInfo);
         return "Mail Sent Successfully...";

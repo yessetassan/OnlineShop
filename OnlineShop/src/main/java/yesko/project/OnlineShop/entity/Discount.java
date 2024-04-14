@@ -3,7 +3,7 @@ package yesko.project.OnlineShop.entity;
 import lombok.*;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.*;
 import java.util.List;
 
 @Entity
@@ -31,13 +31,13 @@ public class Discount {
     private Boolean active;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "modified_at", nullable = false)
-    private Timestamp modifiedAt;
+    private LocalDateTime modifiedAt;
 
     @Column(name = "deleted_at")
-    private Timestamp deletedAt;
+    private LocalDateTime deletedAt;
 
     @OneToMany(mappedBy = "product_discount", cascade = CascadeType.ALL)
     private List<Product> productList;

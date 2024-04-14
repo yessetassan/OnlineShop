@@ -3,7 +3,7 @@ package yesko.project.OnlineShop.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.sql.*;
+import java.time.*;
 
 @Entity
 @Table(name = "t_user_payment")
@@ -31,7 +31,7 @@ public class UserPayment {
     private String accountNo;
 
     @Column(name = "expiry", nullable = false)
-    private Date expiry;
+    private LocalDate expiry;
 
 }
 

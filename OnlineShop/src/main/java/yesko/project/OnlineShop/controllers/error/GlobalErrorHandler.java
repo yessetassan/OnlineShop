@@ -32,6 +32,14 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorDetails> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage());
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ErrorDetails> handleUsernameNotFoundException(UsernameNotFoundException ex, WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(
@@ -43,7 +51,7 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class ErrorDetails {
-        private int statusCode;
-        private String errorMessage;
+        private int code;
+        private String message;
     }
 }

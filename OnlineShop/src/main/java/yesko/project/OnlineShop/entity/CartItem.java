@@ -3,7 +3,7 @@ package yesko.project.OnlineShop.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "t_cart_item")
@@ -29,8 +29,8 @@ public class CartItem {
     private Integer quantity;
 
     @Column(name = "created_at")
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "modified_at")
-    private Timestamp modifiedAt;
+    private LocalDateTime modifiedAt;
 }

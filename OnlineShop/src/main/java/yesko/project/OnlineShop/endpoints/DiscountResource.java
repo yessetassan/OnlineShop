@@ -2,50 +2,75 @@ package yesko.project.OnlineShop.endpoints;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import yesko.project.OnlineShop.dto.DiscountDto;
-import yesko.project.OnlineShop.dto.UserDto;
+import yesko.project.OnlineShop.dto.DiscountDTO;
+import yesko.project.OnlineShop.dto.RequestDiscountDto;
+import yesko.project.OnlineShop.dto.ResponseStatusDto;
 import yesko.project.OnlineShop.entity.Discount;
 import yesko.project.OnlineShop.service.DiscountService;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static yesko.project.OnlineShop.utils.enums.ResponseStatus.*;
+
 @RestController
 @AllArgsConstructor
 @Slf4j
-@RequestMapping("/open-api/discount")
+@RequestMapping("/api/discount")
 public class DiscountResource {
 
     private final DiscountService service;
 
     @GetMapping
-    public ResponseEntity<List<DiscountDto>> takeAll() {
-        List<DiscountDto> discounts = service.all()
+    public ResponseEntity<List<DiscountDTO>> takeAll() {
+        log.info("Received GET request to retrieve all discounts");
+        List<DiscountDTO> discounts = service
+                .all()
                 .stream()
-                .map(DiscountDto::fromEntity)
+                .map(DiscountService::fromEntity)
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(discounts);
     }
 
     @GetMapping("/byActive")
-    public ResponseEntity<List<DiscountDto>> takeByActive() {
-        List<DiscountDto> discounts = service.all()
+    public ResponseEntity<List<DiscountDTO>> takeByActive() {
+        log.info("Retrieving active discounts from the service");
+        List<DiscountDTO> discounts = service
+                .all()
                 .stream()
                 .filter(discount -> discount.getActive().equals(true))
-                .map(DiscountDto::fromEntity)
+                .map(DiscountService::fromEntity)
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(discounts);
     }
 
-    @PutMapping("/byId/modify")
-    public ResponseEntity<DiscountDto> takeByActive(
-            @RequestBody DiscountDto redDiscountDto
+    @PostMapping("/create")
+    public ResponseEntity<DiscountDTO> create(
+            @RequestBody @Validated RequestDiscountDto discountDTO
     ) {
-        Discount discount = service.updateDiscount(redDiscountDto,redDiscountDto.getId());
-        return ResponseEntity.ok().body(
-                DiscountDto.fromEntity(discount));
+        log.info("Creating discount {}", discountDTO);
+        DiscountDTO createdDiscount = DiscountService.fromEntity(service.saveDiscountDto(discountDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdDiscount);
+    }
+
+    @PutMapping("/modify")
+    public ResponseEntity<DiscountDTO> modify(
+            @RequestBody DiscountDTO discountDTO
+    ) {
+        log.info("Update discount with {}", discountDTO);
+        DiscountDTO returnDiscountDto = DiscountService.fromEntity(service.updateDiscount(discountDTO, discountDTO.getId()));
+        return ResponseEntity.ok().body(returnDiscountDto);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+        log.info("Deleting discount with ID: {}", id);
+        service.deleteDiscount(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
 }

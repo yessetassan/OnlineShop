@@ -2,15 +2,10 @@ package yesko.project.OnlineShop.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-import yesko.project.OnlineShop.dto.UserDto;
-import yesko.project.OnlineShop.entity.User;
 import yesko.project.OnlineShop.entity.UserInfo;
-import yesko.project.OnlineShop.repo.UserInfoRepo;
-import yesko.project.OnlineShop.repo.UserRepo;
+import yesko.project.OnlineShop.repo.UserInfoRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,24 +14,24 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserInfoService {
 
-    private final UserInfoRepo userInfoRepo;
+    private final UserInfoRepository userInfoRepository;
 
     public List<UserInfo> all() {
-        return userInfoRepo.findAll();
+        return userInfoRepository.findAll();
     }
     public Optional<UserInfo> findByEmail(String email) {
-        return userInfoRepo.findByEmail(email);
+        return userInfoRepository.findByEmail(email);
     }
     public Optional<UserInfo> findById(Integer id) {
-        return userInfoRepo.findById(id);
+        return userInfoRepository.findById(id);
     }
     @Transactional
     public UserInfo save(UserInfo userInfo) {
-        return userInfoRepo.save(userInfo);
+        return userInfoRepository.save(userInfo);
     }
     @Transactional
     public UserInfo update(UserInfo userInfo, Integer id) {
-        UserInfo existingUserInfo = userInfoRepo.findById(id)
+        UserInfo existingUserInfo = userInfoRepository.findById(id)
                 .orElseThrow(() -> new IllegalStateException("Cannot update userInfo. UserInfo with id " + id + " does not exist."));
         existingUserInfo.setEmail(userInfo.getEmail());
         existingUserInfo.setAddressLine(userInfo.getAddressLine());
@@ -45,6 +40,6 @@ public class UserInfoService {
         existingUserInfo.setTelephone(userInfo.getTelephone());
         existingUserInfo.setPostalCode(userInfo.getPostalCode());
 
-        return userInfoRepo.save(existingUserInfo);
+        return userInfoRepository.save(existingUserInfo);
     }
 }

@@ -6,13 +6,13 @@ import lombok.Setter;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 @Getter
 @Setter
 public class Constants {
-    public static final Instant nowUtcPlusOne = Instant.now().truncatedTo(ChronoUnit.SECONDS).plusMillis(ZoneOffset.ofHours(0).getTotalSeconds());
-    public static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     public static final String START_DATE_FOR_SEMESTER = "22.01.2024";
     public static final String DATE_FORMAT = "dd.MM.yyyy";
     public static final String TIME_FORMAT = "hh:mm a";

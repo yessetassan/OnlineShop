@@ -7,6 +7,6 @@ import yesko.project.OnlineShop.entity.UserInfo;
 import java.util.Optional;
 
 @Repository
-public interface UserInfoRepo extends JpaRepository<UserInfo, Integer> {
+public interface UserInfoRepository extends JpaRepository<UserInfo, Integer> {
     Optional<UserInfo> findByEmail(String email);
 }

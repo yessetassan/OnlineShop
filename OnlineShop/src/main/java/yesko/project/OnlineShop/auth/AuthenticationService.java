@@ -3,7 +3,6 @@ package yesko.project.OnlineShop.auth;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,10 +16,10 @@ import yesko.project.OnlineShop.entity.Role;
 import yesko.project.OnlineShop.entity.User;
 import yesko.project.OnlineShop.entity.UserAuth;
 import yesko.project.OnlineShop.entity.UserInfo;
-import yesko.project.OnlineShop.repo.RoleRepo;
-import yesko.project.OnlineShop.repo.UserAuthRepo;
-import yesko.project.OnlineShop.repo.UserInfoRepo;
-import yesko.project.OnlineShop.repo.UserRepo;
+import yesko.project.OnlineShop.repo.RoleRepository;
+import yesko.project.OnlineShop.repo.UserAuthRepository;
+import yesko.project.OnlineShop.repo.UserInfoRepository;
+import yesko.project.OnlineShop.repo.UserRepository;
 import yesko.project.OnlineShop.utils.enums.AuthorizationStatus;
 
 import java.time.LocalDateTime;
@@ -31,10 +30,10 @@ import java.util.Date;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthenticationService {
-    private final UserAuthRepo userAuthRepo;
-    private final UserRepo userRepo;
-    private final RoleRepo roleRepo;
-    private final UserInfoRepo userInfoRepo;
+    private final UserAuthRepository userAuthRepository;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final UserInfoRepository userInfoRepository;
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
@@ -42,9 +41,9 @@ public class AuthenticationService {
     @Transactional
     public AuthenticationResponse register(RegisterRequest request) {
 
-        if (userRepo.findByUsername(request.getUsername()).isPresent())
+        if (userRepository.findByUsername(request.getUsername()).isPresent())
             throw new AlreadyExistsException(String.format("User with username %s is already exists...", request.getUsername()));
-        if (userInfoRepo.findByEmail(request.getEmail()).isPresent())
+        if (userInfoRepository.findByEmail(request.getEmail()).isPresent())
             throw new AlreadyExistsException(String.format("User with email %s is already exists...", request.getEmail()));
 
         User user = toUserEntity(request);
@@ -67,7 +66,7 @@ public class AuthenticationService {
         userInfo.setCity(request.getCity());
         userInfo.setCountry(request.getCountry());
         userInfo.setTelephone(request.getTelephone());
-        return userInfoRepo.save(userInfo);
+        return userInfoRepository.save(userInfo);
     }
 
     private UserAuth toUserAuthEntity(RegisterRequest request, User user) {
@@ -81,7 +80,7 @@ public class AuthenticationService {
         userAuth.setToken(jwt);
         userAuth.setExpiredDate(expiredDate);
         userAuth.setIsExpired(isExpired);
-        return userAuthRepo.save(userAuth);
+        return userAuthRepository.save(userAuth);
     }
 
     public LocalDateTime convert(Date date) {
@@ -91,7 +90,7 @@ public class AuthenticationService {
     }
     private Role toUserRole() {
         final String role = AuthorizationStatus.USER.getRoleName();
-        return roleRepo.findByName(role)
+        return roleRepository.findByName(role)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Error during loading for %s...", role)));
     }
     private User toUserEntity(RegisterRequest request) {
@@ -101,10 +100,10 @@ public class AuthenticationService {
         user.setLastName(request.getLastName());
         user.setCreatedAt(LocalDateTime.now());
         user.setModifiedAt(LocalDateTime.now());
-        return userRepo.save(user);
+        return userRepository.save(user);
     }
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        var userAuth = userAuthRepo.findByUsername(request.getUsername())
+        var userAuth = userAuthRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException(String.format("User with username %s not found...", request.getUsername())));
         try {
             authenticationManager.authenticate(
@@ -119,7 +118,7 @@ public class AuthenticationService {
             userAuth.setExpiredDate(jwtService.extractExpiration(jwt).toInstant()
                     .atZone(zoneId)
                     .toLocalDateTime());
-            userAuthRepo.save(userAuth);
+            userAuthRepository.save(userAuth);
 
             return AuthenticationResponse.builder()
                     .token(jwt)
