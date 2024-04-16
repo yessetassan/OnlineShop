@@ -24,8 +24,9 @@ import java.util.stream.Collectors;
 public class BasketResource {
 
     private final BasketService service;
-    @GetMapping
-    public ResponseEntity<BasketDTO> takeAll() {
+    @GetMapping("/all")
+    public ResponseEntity<BasketDTO> takeAll()
+    {
         return ResponseEntity.ok().body(service.takeAll());
     }
 

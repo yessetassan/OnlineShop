@@ -1,34 +1,43 @@
 package yesko.project.OnlineShop.service;
 
-import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import yesko.project.OnlineShop.entity.UserInfo;
+import yesko.project.OnlineShop.entity.UserPayment;
 import yesko.project.OnlineShop.repo.UserInfoRepository;
+import yesko.project.OnlineShop.repo.UserPaymentRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserInfoService {
 
     private final UserInfoRepository userInfoRepository;
 
-    public List<UserInfo> all() {
+    @Transactional(readOnly = true)
+    public List<UserInfo> findAll() {
         return userInfoRepository.findAll();
     }
+
+    @Transactional(readOnly = true)
     public Optional<UserInfo> findByEmail(String email) {
         return userInfoRepository.findByEmail(email);
     }
+
+    @Transactional(readOnly = true)
     public Optional<UserInfo> findById(Integer id) {
         return userInfoRepository.findById(id);
     }
+
     @Transactional
     public UserInfo save(UserInfo userInfo) {
         return userInfoRepository.save(userInfo);
     }
+
     @Transactional
     public UserInfo update(UserInfo userInfo, Integer id) {
         UserInfo existingUserInfo = userInfoRepository.findById(id)
@@ -39,7 +48,6 @@ public class UserInfoService {
         existingUserInfo.setCountry(userInfo.getCountry());
         existingUserInfo.setTelephone(userInfo.getTelephone());
         existingUserInfo.setPostalCode(userInfo.getPostalCode());
-
         return userInfoRepository.save(existingUserInfo);
     }
 }

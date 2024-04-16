@@ -1,22 +1,13 @@
 spring:
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
+  profiles:
+    active: dev
   application:
     name: OnlineShop
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/d_online_shop
-    username: postgres
-    password: Qasaqayj7
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: yesset.assan@gmail.com
-    password: tnvqyiriqnefkzwt
-    properties:
-      mail.smtp.auth: true
-      mail.smtp.starttls.enable: true
+    url: ${DB_URL}  # Добавьте эту строку для URL базы данных
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: update
@@ -24,5 +15,27 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail.smtp:
+        auth: true
+        starttls:
+          enable: true
   liquibase:
     change-log: db/main-data.xml
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

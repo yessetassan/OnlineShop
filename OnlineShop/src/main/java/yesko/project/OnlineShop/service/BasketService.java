@@ -35,7 +35,7 @@ public class BasketService {
         basketDTO.setTotal(shoppingSession.getTotal());
         basketDTO.setCartItemDTOList(
                 cartItemService
-                        .findAllBySessionId(shoppingSession.getId())
+                        .getAllCartItemsBySessionId(shoppingSession.getId())
                         .stream()
                         .map(CartItemService::fromEntity)
                         .collect(Collectors.toList())
