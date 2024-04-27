@@ -18,6 +18,10 @@ public class Constants {
     public static final String TIME_FORMAT = "hh:mm a";
     public static final String SEPARATE_BY_COMMA = ",";
     public static final String SEPARATE_BY_POINT = ".";
+    public static final String PENDING = "PENDING";
+    public static final String PAID = "PAID";
+    public static final String FAILED = "FAILED";
+    public static final String REFUNDED = "REFUNDED";
     public static final Integer SIX_SIZED_SECRET_CODE = 6;
     public static final Integer EIGHT_SIZED_SECRET_CODE = 8;
     public static final Integer ABSENCE_COEFFICIENT = 2;

@@ -5,12 +5,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
+import yesko.project.OnlineShop.entity.PaymentStatus;
 
 @Data
 @Builder
-public class PaymentProcessDTO {
-    private Long productId;
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserPaymentHistoryDTO {
+    private String productInfo;
     private Integer quantity;
+    private String paymentStatus;
 }

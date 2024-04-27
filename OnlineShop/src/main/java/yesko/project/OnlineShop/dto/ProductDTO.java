@@ -20,12 +20,6 @@ public class ProductDTO {
     private String SKU;
     private BigDecimal price;
     private DiscountDTO discountDTO;
-    private ProductCategoryDTO productCategoryDTO;
-    private ProductInventoryDTO productInventoryDTO;
-    private String createdAt;
-    private String modifiedAt;
-    private String deletedAt;
-    private Long categoryId;
-    private Long inventoryId;
-    private Long discountId;
+    private Integer quantity;
+    private String category;
 }

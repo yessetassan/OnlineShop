@@ -18,5 +18,4 @@
     <include file="db/changelog/012_fill_t_payment_status.sql" relativeToChangelogFile="false"/>
     <include file="db/changelog/013_fill_t_shopping_session.sql" relativeToChangelogFile="false"/>
 
-
 </databaseChangeLog>

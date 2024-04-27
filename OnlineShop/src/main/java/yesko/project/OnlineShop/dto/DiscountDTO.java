@@ -12,12 +12,6 @@ import static yesko.project.OnlineShop.utils.Constants.formatter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DiscountDTO {
-    private Long id;
-    private String name;
-    private String description;
     private BigDecimal discountPercent;
     private boolean active;
-    private String createdAt;
-    private String modifiedAt;
-    private String deletedAt;
 }

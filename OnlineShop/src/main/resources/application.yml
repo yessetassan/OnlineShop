@@ -5,7 +5,7 @@ spring:
     name: OnlineShop
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${DB_URL}  # Добавьте эту строку для URL базы данных
+    url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   jpa:
@@ -30,9 +30,8 @@ spring:
           enable: true
   liquibase:
     change-log: db/main-data.xml
-
 server:
-  port: 8080
+  port: 8082
 
 management:
   endpoints:

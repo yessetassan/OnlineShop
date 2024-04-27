@@ -30,8 +30,8 @@ public class OrderDetails {
     @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
 
-    @OneToMany(mappedBy = "orderItem_orderDet")
-    private List<OrderItem> orderItemList;
+    @OneToOne(mappedBy = "orderItem_orderDet")
+    private OrderItem orderItem;
 
     @OneToOne(mappedBy = "paymentDet_orderDet")
     private PaymentDetails paymentDetails;

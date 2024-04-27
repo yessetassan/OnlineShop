@@ -20,16 +20,16 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @Slf4j
-@RequestMapping("/api/basket")
+@RequestMapping("/api/user/bucket")
 public class BasketResource {
 
     private final BasketService service;
-    @GetMapping("/all")
+    @GetMapping("")
     public ResponseEntity<BasketDTO> takeAll()
     {
         return ResponseEntity.ok().body(service.takeAll());
     }
-
+    
     @PostMapping("/addItem")
     public ResponseEntity<BasketDTO> addItem(
             @RequestBody @Validated BasketAddItemDTO basketAddItemDTO

@@ -2,11 +2,13 @@ package yesko.project.OnlineShop.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import yesko.project.OnlineShop.dto.UserDto;
 import yesko.project.OnlineShop.entity.User;
 import yesko.project.OnlineShop.repo.UserRepository;
+import yesko.project.OnlineShop.specification.UserSpecifications;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -41,5 +43,14 @@ public class UserService {
         existingUser.setModifiedAt(LocalDateTime.now());
 
         return userRepository.save(existingUser);
+    }
+    public static UserDto fromEntity(User user) {
+        return new UserDto(
+                user.getId(),
+                user.getUsername(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getCreatedAt(),
+                user.getModifiedAt());
     }
 }

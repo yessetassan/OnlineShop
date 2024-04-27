@@ -68,10 +68,10 @@ public class DiscountService {
             discount.setModifiedAt(LocalDateTime.now());
         }
     }
-
     public static DiscountDTO fromEntity(Discount discount) {
         DiscountDTO dto = new DiscountDTO();
-        dto.setId(discount.getId());
+        dto.setActive(discount.getActive());
+        dto.setDiscountPercent(discount.getDiscountPercent());
         return dto;
     }
 }

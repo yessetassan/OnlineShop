@@ -16,10 +16,6 @@ import static yesko.project.OnlineShop.utils.Constants.formatter;
 @AllArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
-//    private final DiscountService discountService;
-//    private final ProductInventoryService productInventoryService;
-//    private final ProductCategoryService productCategoryService;
-
     public static ProductDTO fromEntity(Product product) {
         ProductDTO dto = new ProductDTO();
         dto.setId(product.getId());
@@ -27,23 +23,12 @@ public class ProductService {
         dto.setDescription(product.getDescription());
         dto.setPrice(product.getPrice());
         dto.setSKU(product.getSku());
-        System.out.println(product.getProduct_productCategory().getName());
         if (product.getProduct_discount() != null)
             dto.setDiscountDTO(DiscountService.fromEntity(product.getProduct_discount()));
         if (product.getProduct_productCategory() != null)
-            dto.setProductCategoryDTO(ProductCategoryService.fromEntity(product.getProduct_productCategory()));
+            dto.setCategory(product.getProduct_productCategory().getName());
         if (product.getProduct_productInventory() != null)
-            dto.setProductInventoryDTO(ProductInventoryService.fromEntity(product.getProduct_productInventory()));
-
-        if (product.getCreatedAt() != null) {
-            dto.setCreatedAt(product.getCreatedAt().format(formatter));
-        }
-        if (product.getModifiedAt() != null) {
-            dto.setModifiedAt(product.getModifiedAt().format(formatter));
-        }
-        if (product.getDeletedAt() != null) {
-            dto.setDeletedAt(product.getDeletedAt().format(formatter));
-        }
+            dto.setQuantity(product.getProduct_productInventory().getQuantity());
         return dto;
     }
     @Transactional
@@ -75,6 +60,10 @@ public class ProductService {
 
     public Optional<Product> findProductByName(String name) {
         return productRepository.findByName(name);
+    }
+
+    public List<Product> findAllByCategory(String category) {
+        return productRepository.findAllByCategory("%" + category + "%");
     }
 
     public void deleteProduct(Long id) {

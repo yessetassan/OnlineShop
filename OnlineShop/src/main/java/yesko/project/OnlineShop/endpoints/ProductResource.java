@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import yesko.project.OnlineShop.dto.ProductDTO;
 import yesko.project.OnlineShop.dto.UserDto;
@@ -23,14 +24,15 @@ public class ProductResource {
     private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<List<ProductDTO>> takeAll() {
+    public ResponseEntity<List<ProductDTO>> takeAll(
+            @RequestParam(value = "category", required = false, defaultValue = "") String category
+    ) {
         List<ProductDTO> users = productService
-                .findAllProducts()
+                .findAllByCategory(category)
                 .stream()
                 .map(ProductService::fromEntity)
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(users);
     }
-
 
 }

@@ -16,13 +16,4 @@ public class UserDto {
     private String lastName;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    public static UserDto fromEntity(User user) {
-        return new UserDto(
-                user.getId(),
-                user.getUsername(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getCreatedAt(),
-                user.getModifiedAt());
-    }
 }
