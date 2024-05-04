@@ -1,40 +1,15 @@
 spring:
-  profiles:
-    active: dev
   application:
-    name: OnlineShop
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: false
-    properties:
-      hibernate:
-        format_sql: true
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
-  mail:
-    host: ${MAIL_HOST}
-    port: ${MAIL_PORT}
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
-    properties:
-      mail.smtp:
-        auth: true
-        starttls:
-          enable: true
-  liquibase:
-    change-log: db/main-data.xml
-server:
-  port: 8082
+    name: online-shop-service
+  config:
+    import: "optional:configserver:http://localhost:8088"
 
 management:
   endpoints:
     web:
       exposure:
         include: "*"
+
+
+
+

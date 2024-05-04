@@ -11,6 +11,7 @@ import yesko.project.OnlineShop.dto.*;
 import yesko.project.OnlineShop.service.PaymentProcessService;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @AllArgsConstructor
@@ -19,18 +20,18 @@ import java.util.List;
 public class PaymentProcessResource {
     private final PaymentProcessService paymentProcessService;
     @GetMapping("")
-    public ResponseEntity<List<UserPaymentHistoryDTO>> allPaymentDetails(
+    public CompletableFuture<ResponseEntity<List<UserPaymentHistoryDTO>>> allPaymentDetails(
     ) {
         log.info("Getting paymentDetails");
-        return ResponseEntity.ok()
-                .body(paymentProcessService.allPaymentDetails());
+        return CompletableFuture.supplyAsync(() -> ResponseEntity.ok()
+                .body(paymentProcessService.allPaymentDetails()));
     }
     @PostMapping("/pay")
-    public ResponseEntity<PaymentProcessStatusDTO> paymentProcess(
+    public CompletableFuture<ResponseEntity<PaymentProcessStatusDTO>> paymentProcess(
             @RequestBody @Validated PaymentProcessDTO paymentProcessDTO
     ) {
         log.info("PaymentProcess {}", paymentProcessDTO);
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(paymentProcessService.paymentProcess(paymentProcessDTO));
+        return CompletableFuture.supplyAsync(() -> ResponseEntity.status(HttpStatus.CREATED)
+                .body(paymentProcessService.paymentProcess(paymentProcessDTO)));
     }
 }

@@ -1,4 +1,4 @@
-DB_URL: 'jdbc:postgresql://yesko-database-1.cx2qk40qop6a.eu-north-1.rds.amazonaws.com:5432/yesko_db'  # Указание URL базы данных
+DB_URL: 'jdbc:postgresql://localhost:5432/fix'
 DB_USERNAME: 'postgres'
 DB_PASSWORD: 'Qasaqayj7'
 MAIL_USERNAME: 'yesset.assan@gmail.com'
